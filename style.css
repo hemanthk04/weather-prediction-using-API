@@ -1,0 +1,156 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+body{
+    background-image: url(./stock/thunder.jpg);
+    background-position: bottom;
+    background-size: cover;
+
+    font-family: "Poppins", sans-serif;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    height: 100vh;
+}
+
+.container{
+    max-width: 700px;
+    width: 100%;
+    /* background-color: #fff; */
+    background: transparent;
+    color: #222;
+    border-radius: 20px;
+    
+}
+
+.group{
+    display: grid;
+    grid-template-columns: 3fr 4fr;
+    grid-gap: 0.5rem;
+}
+.currsection{
+    background-color: #fff;
+    /* background-image: url('stock/cloudy.jpg'); */
+    background-position: center;
+    background-size: cover;
+    background-repeat: none;
+    position: relative;
+    border-radius: 5px 5px 5px 5px;
+}
+
+.currsection::before{
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #2a3e4654 10%, #29404e42 100%);
+  opacity: 0.5;
+  z-index: -1;
+  border-radius: 20px;
+}
+
+.basicinfo{
+
+    padding:1.5rem;
+    text-align: center;
+    justify-content: center;
+}
+.basicinfo .icons{
+    margin-top:3rem;
+    width: 80%;
+    object-fit: cover;
+    margin: 0 auto;
+
+}
+.basicinfo h2{
+    text-shadow: 2px 2px 2px rgba(0,0,0, 0.3);
+    font-size: 3rem;
+    font-weight: 600;
+}
+.basicinfo h3{
+    text-shadow: 2px 2px 2px rgba(0,0,0, 0.2);
+    font-size: 1.4rem;
+    text-transform: capitalize;
+}
+.tempnow{
+    font-size: 4rem;
+    font-weight: 600;
+    margin-top: 1rem ;
+}
+
+
+/* content and prediction section css starts from here*/
+
+.predsection{
+    padding: 1.5rem ;
+    background-color: #fff;
+    border-radius: 5px 5px 5px 5px;
+}
+
+.predsection form{
+    display: flex;
+    margin: 1.5rem;
+    position: relative;
+    align-items: center;
+}
+.predsection form input{
+    padding: 1rem;
+    width: 72%;
+    outline: none;
+    background-color: #fff;
+    border: 1px solid #222;
+    border-radius: 2.5px 0px 0px 2.5px;
+    font-family: inherit;
+    color: #222;
+    font-size: 1rem;
+    height: 3rem;
+}
+.predsection form button{
+    position: relative;
+    width: 24%;
+    height: 3rem;
+    background-color: #222;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 0px 2.5px 2.5px 0px;
+    border: none;
+    font-family: inherit;
+}
+
+.currdayinfo .daycontent{
+    display: flex;
+    justify-content: space-between;
+    padding: 0.4rem 1rem; 
+}
+
+.currdayinfo .daycontent .title{
+    font-weight: 400;
+}
+
+.nextlist ul{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style-type: none ;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    border-radius: 10px;
+}
+.nextlist ul li{
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 5px;
+}
+.nextlist ul li img{
+    width: 50%;
+    object-fit: cover;
+}
