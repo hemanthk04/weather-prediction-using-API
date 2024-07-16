@@ -10,7 +10,15 @@ const currweather = document.querySelector(".icons");
 const currdayinfo = document.querySelector(".currdayinfo");
 const nextlist = document.querySelector(".nextlist ul");
 
-const days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+const days = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+];
 
 const nowday = new Date();
 const dayName = days[nowday.getDay()];
@@ -49,6 +57,8 @@ async function findLocationinfo(namesearch) {
       const ImageContent = displayImageContent(result);
       const rightSide = rightSideContent(result);
       displayForeCast(result.coord.lat, result.coord.lon);
+      changeBackground(result);
+
       setTimeout(() => {
         currweather.insertAdjacentHTML("afterbegin", ImageContent);
         currweather.classList.add("fadeIn");
@@ -63,11 +73,10 @@ async function findLocationinfo(namesearch) {
 }
 
 function displayImageContent(data) {
-//   displaycardbackground(data);
-  return `<h2 class="tempnow">${Math.round(data.main.temp - 275.15)}°C</h2>
+  //   displaycardbackground(data);
+  return `<h2 class="tempnow">${Math.round(data.main.temp - 273.15)}°C</h2>
     <h3 class="scenenow">${data.weather[0].description}</h3>`;
 }
-
 
 function rightSideContent(result) {
   return `<div class="daycontent">
@@ -105,19 +114,19 @@ function rightSideContent(result) {
 }
 
 async function displayForeCast(lat, long) {
-    const ForeCast_API = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${long}&appid=${API}`;
-    const data = await fetch(ForeCast_API);
-    const result = await data.json();
+  const ForeCast_API = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${long}&appid=${API}`;
+  const data = await fetch(ForeCast_API);
+  const result = await data.json();
 
-    const uniqeForeCastDays = [];
-    const daysForecast = result.list.filter((forecast) => {
-      const forecastDate = new Date(forecast.dt_txt).getDate();
-      if (!uniqeForeCastDays.includes(forecastDate)) {
-        return uniqeForeCastDays.push(forecastDate);
-      }
-    });
-    console.log(daysForecast);
-    daysForecast.forEach((content, indx) => {
+  const uniqeForeCastDays = [];
+  const daysForecast = result.list.filter((forecast) => {
+    const forecastDate = new Date(forecast.dt_txt).getDate();
+    if (!uniqeForeCastDays.includes(forecastDate)) {
+      return uniqeForeCastDays.push(forecastDate);
+    }
+  });
+  console.log(daysForecast);
+  daysForecast.forEach((content, indx) => {
     if (indx <= 3) {
       nextlist.insertAdjacentHTML("afterbegin", forecast(content));
     }
@@ -141,14 +150,11 @@ function forecast(frContent) {
 </li>`;
 }
 
-
-
 //Function to change the backgroup acc to time.
 //Morning was set as 5am to 5pm
 //Evening was set as 5pm to 5am
 
 //will change it based on the sunrise and sunset time.
-
 
 function changeBackgroundBasedOnTime() {
   // Get the current time in IST
@@ -162,7 +168,7 @@ function changeBackgroundBasedOnTime() {
   // Determine the time of day and set the background color
   if (hours >= 5 && hours < 17) {
     document.body.style.backgroundImage = "url('./stock/morning.jpg')";
-  } else if (hours >= 17 && hours < 24 || (hours < 5)) {
+  } else if ((hours >= 17 && hours < 24) || hours < 5) {
     document.body.style.backgroundImage = "url('./stock/night.jpg')";
   }
   document.body.style.backgroundSize = "cover";
@@ -176,3 +182,10 @@ changeBackgroundBasedOnTime();
 // Optionally, update the background periodically (e.g., every minute)
 setInterval(changeBackgroundBasedOnTime, 60 * 1000);
 
+function changeBackground(result) {
+  const weatherCondition = result.weather[0].main;
+  const currSectionEl = document.querySelector(".currsection");
+  currSectionEl.style.backgroundImage = `url('./stock/${weatherCondition}.jpg')`;
+  currSectionEl.style.backgroundSize = "cover";
+  currSectionEl.style.backgroundPosition = "center";
+}
